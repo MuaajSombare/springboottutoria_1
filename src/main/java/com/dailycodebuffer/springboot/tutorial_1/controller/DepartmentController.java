@@ -3,6 +3,8 @@ package com.dailycodebuffer.springboot.tutorial_1.controller;
 import com.dailycodebuffer.springboot.tutorial_1.entity.Department;
 import com.dailycodebuffer.springboot.tutorial_1.service.DepartmentService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +17,17 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
+    private final Logger logger = LoggerFactory.getLogger(DepartmentController.class);
+
     @PostMapping("/departments")
     public Department saveDepartments(@Valid @RequestBody Department department){
+        logger.info("inside department savecontroller");
         return departmentService.saveDepartment(department);
     }
 
     @GetMapping("/departments")
     public List<Department> fetchDepartments(){
+        logger.info("inside department fetchcontroller");
         return departmentService.fetchDepartments();
     }
 
