@@ -1,6 +1,7 @@
 package com.dailycodebuffer.springboot.tutorial_1.controller;
 
 import com.dailycodebuffer.springboot.tutorial_1.entity.Department;
+import com.dailycodebuffer.springboot.tutorial_1.error.DepartmentNotFoundException;
 import com.dailycodebuffer.springboot.tutorial_1.service.DepartmentService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments/{id}")
-    public Department fetchDepartmentById(@PathVariable("id") Long departmentId){
+    public Department fetchDepartmentById(@PathVariable("id") Long departmentId) throws DepartmentNotFoundException {
         return departmentService.fetchDepartmentById(departmentId);
     }
 
@@ -50,7 +51,7 @@ public class DepartmentController {
         return departmentService.updateDepartment(departmentId, department);
     }
     @GetMapping("/departments/name/{name}")
-    public Department fetchByDepartmentName(@PathVariable("name") String departmentName){
+    public List<Department> fetchByDepartmentName(@PathVariable("name") String departmentName){
         return departmentService.fetchDepartmentByName(departmentName);
     }
 }
