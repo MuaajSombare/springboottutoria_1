@@ -3,6 +3,8 @@ package com.dailycodebuffer.springboot.tutorial_1.controller;
 import com.dailycodebuffer.springboot.tutorial_1.entity.Department;
 import com.dailycodebuffer.springboot.tutorial_1.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,13 +30,20 @@ public class DepartmentController {
     }
 
     @DeleteMapping("/departments/{id}")
-    public String deleteDepartmentById(@PathVariable("id") Long departmentId){
-        departmentService.deleteDepartmentById(departmentId);
-        return "Department deleted successfully";
+    public ResponseEntity<String> deleteDepartmentById(@PathVariable("id") Long departmentId){
+        int number = departmentService.deleteDepartmentById(departmentId);
+        if (number == 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Department not found");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Department deleted successfully");
     }
 
     @PutMapping("/departments/{id}")
     public Department updateDepartment(@PathVariable("id") Long departmentId, @RequestBody Department department){
         return departmentService.updateDepartment(departmentId, department);
+    }
+    @GetMapping("/departments/name/{name}")
+    public Department fetchByDepartmentName(@PathVariable("name") String departmentName){
+        return departmentService.fetchDepartmentByName(departmentName);
     }
 }
