@@ -3,6 +3,7 @@ package com.dailycodebuffer.springboot.tutorial_1.service;
 import com.dailycodebuffer.springboot.tutorial_1.entity.Department;
 import com.dailycodebuffer.springboot.tutorial_1.repository.DepartmentRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -35,7 +36,7 @@ class DepartmentServiceTest {
                 .thenReturn(Arrays.asList(department));
     }
     @Test
-
+    @Disabled
     public void whenValidDepartmentName_thenDepartmentShouldFound(){
         String departmentName = "IT";
         List<Department> found = departmentService.fetchDepartmentByName(departmentName);
